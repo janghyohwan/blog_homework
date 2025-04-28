@@ -1,63 +1,104 @@
 "use client";
 import { motion } from "framer-motion";
+import { HomeSectionProps } from "../types/home.types";
+import { useState, useEffect } from "react";
 
-const HomeSection = () => {
-  const leftToRightVariants = {
-    hidden: { opacity: 0, x: -100 },
-    visible: { opacity: 1, x: 0 },
+const HomeSection: React.FC<HomeSectionProps> = () => {
+  const [isVideoEnded, setIsVideoEnded] = useState(false);
+  const [showText, setShowText] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (isVideoEnded) {
+      setShowText(true);
+      timeoutId = setTimeout(() => {
+        setIsVideoEnded(false);
+        setShowText(false);
+        const video = document.querySelector("video");
+        if (video) {
+          video.currentTime = 0;
+          video.play();
+        }
+      }, 5000);
+    }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [isVideoEnded]);
+
+  const textVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.5,
+      x: 0,
+      y: 0,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
   };
 
-  const rightToLeftVariants = {
-    hidden: { opacity: 0, x: 100 },
-    visible: { opacity: 1, x: 0 },
+  const splitVariants = {
+    initial: {
+      width: "0%",
+      left: "50%",
+    },
+    animate: {
+      width: "100%",
+      left: "0%",
+      transition: {
+        duration: 1.5,
+        ease: [0.76, 0, 0.24, 1],
+      },
+    },
   };
 
   return (
     <section
       id="home"
-      className="relative h-screen flex overflow-hidden"
+      className="relative h-screen flex overflow-hidden bg-black"
       style={{ fontFamily: "Poppins, sans-serif" }}
     >
       {/* Full-screen video background */}
-      <video
-        src="/videos/intro.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-[-1]"
-      />
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <video
+          src="/videos/intro.mp4"
+          autoPlay
+          muted
+          playsInline
+          onEnded={() => setIsVideoEnded(true)}
+          className="w-full h-full object-cover"
+        />
+        {/* Split animation overlay */}
+        <motion.div
+          className="absolute top-0 h-full bg-black"
+          initial="initial"
+          animate={isVideoEnded ? "animate" : "initial"}
+          variants={splitVariants}
+        />
+      </div>
+
       {/* Text overlay centered */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-        <div className="text-[55px] font-bold leading-[1.8] text-white space-y-4">
-          <motion.span
-            initial="hidden"
-            animate="visible"
-            variants={leftToRightVariants}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="block"
-          >
-            I’m a Front-End
-          </motion.span>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={rightToLeftVariants}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
-            className="flex items-center gap-6 justify-center"
-          >
+      <div className="relative z-10 w-full h-full flex items-center justify-center">
+        <motion.div
+          className="text-[55px] font-bold leading-[1.8] text-white space-y-4 text-center"
+          initial="hidden"
+          animate={showText ? "visible" : "hidden"}
+          variants={textVariants}
+        >
+          <span className="block">I'm a Front-End</span>
+          <div className="flex items-center gap-6 justify-center">
             <span>Developer</span>
-          </motion.div>
-          <motion.span
-            initial="hidden"
-            animate="visible"
-            variants={leftToRightVariants}
-            transition={{ duration: 1, ease: "easeOut", delay: 1 }}
-            className="block"
-          >
-            Not born — made.
-          </motion.span>
-        </div>
+          </div>
+          <span className="block">Not born — made.</span>
+        </motion.div>
       </div>
     </section>
   );

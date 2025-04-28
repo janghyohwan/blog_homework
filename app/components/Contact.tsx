@@ -1,6 +1,8 @@
 import { FaInstagram, FaFacebook, FaGoogle } from "react-icons/fa";
+import { ContactPageProps } from "../types/contact.types";
+import { contactInfo, socialLinks } from "../data/contactData";
 
-const ContactPage = () => {
+const ContactPage: React.FC<ContactPageProps> = () => {
   return (
     <footer id="contact" className="h-[400px] px-20 py-16">
       <div className="w-full bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-8 shadow-xl">
@@ -15,53 +17,48 @@ const ContactPage = () => {
               <span className="font-semibold min-w-[100px] text-[20px]">
                 Email:
               </span>
-              <span className="text-[20px]">developer@example.com</span>
+              <span className="text-[20px]">{contactInfo.email}</span>
             </div>
             <div className="flex items-center gap-4">
               <span className="font-semibold min-w-[100px] text-[20px]">
                 Phone:
               </span>
-              <span className="text-[20px]">010-1234-5678</span>
+              <span className="text-[20px]">{contactInfo.phone}</span>
             </div>
             <div className="flex items-center gap-4">
               <span className="font-semibold min-w-[100px] text-[20px]">
                 Location:
               </span>
-              <span className="text-[20px]">Seoul, South Korea</span>
+              <span className="text-[20px]">{contactInfo.location}</span>
             </div>
             <div className="flex items-center gap-4">
               <span className="font-semibold min-w-[100px] text-[20px]">
                 Github:
               </span>
-              <span className="text-[20px]">github.com/devkim</span>
+              <span className="text-[20px]">{contactInfo.github}</span>
             </div>
           </div>
 
           <div className="flex flex-col justify-center space-y-4">
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/90 hover:text-white transition-colors"
-            >
-              <FaInstagram className="w-[50px] h-[50px]" />
-            </a>
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/90 hover:text-white transition-colors"
-            >
-              <FaFacebook className="w-[50px] h-[50px]" />
-            </a>
-            <a
-              href="https://google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/90 hover:text-white transition-colors"
-            >
-              <FaGoogle className="w-[50px] h-[50px]" />
-            </a>
+            {socialLinks.map((link) => (
+              <a
+                key={link.platform}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/90 hover:text-white transition-colors"
+              >
+                {link.platform === "instagram" && (
+                  <FaInstagram className="w-[50px] h-[50px]" />
+                )}
+                {link.platform === "facebook" && (
+                  <FaFacebook className="w-[50px] h-[50px]" />
+                )}
+                {link.platform === "google" && (
+                  <FaGoogle className="w-[50px] h-[50px]" />
+                )}
+              </a>
+            ))}
           </div>
         </div>
       </div>

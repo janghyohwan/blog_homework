@@ -1,8 +1,9 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { CardData, AboutSectionProps } from "../types/about.types";
 
-const AboutSection = () => {
+const AboutSection: React.FC<AboutSectionProps> = () => {
   // Carousel state: 3 pages of 4 cards each and autoplay toggle
   const [page, setPage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -10,7 +11,7 @@ const AboutSection = () => {
   const handleNext = () => setPage((p) => Math.min(p + 1, pages.length - 1));
   const handlePrev = () => setPage((p) => Math.max(p - 1, 0));
 
-  const cardData = [
+  const cardData: CardData[] = [
     {
       title: "HTML",
       desc: "웹의 기초가 되는 마크업 언어로, 웹 페이지의 구조를 정의합니다.",
