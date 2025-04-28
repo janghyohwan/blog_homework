@@ -1,26 +1,9 @@
 // Add client directive
-+"use client";
+"use client";
 import React from "react";
 import Link from "next/link";
-
-// Type definitions for navigation items and header props
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface HeaderProps {
-  logoText?: string;
-  logoHref?: string;
-  navItems?: NavItem[];
-}
-
-// Default navigation items
-const defaultNavItems: NavItem[] = [
-  { label: "ABOUT", href: "/#about" },
-  { label: "PROJECT", href: "/#projects" },
-  { label: "CONTACT", href: "/#contact" },
-];
+import { HeaderProps, NavItem } from "../../types/header.types";
+import { defaultNavItems } from "../../data/headerData";
 
 const HeaderPage: React.FC<HeaderProps> = ({
   logoText = "HOME",

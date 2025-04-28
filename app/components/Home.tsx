@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { HomeSectionProps } from "../types/home.types";
+import { HomeSectionProps } from "../../types/home.types";
 import { useState, useEffect } from "react";
 
 const HomeSection: React.FC<HomeSectionProps> = () => {
@@ -66,7 +66,6 @@ const HomeSection: React.FC<HomeSectionProps> = () => {
       className="relative h-screen flex overflow-hidden bg-black"
       style={{ fontFamily: "Poppins, sans-serif" }}
     >
-      {/* Full-screen video background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <video
           src="/videos/intro.mp4"
@@ -76,7 +75,6 @@ const HomeSection: React.FC<HomeSectionProps> = () => {
           onEnded={() => setIsVideoEnded(true)}
           className="w-full h-full object-cover"
         />
-        {/* Split animation overlay */}
         <motion.div
           className="absolute top-0 h-full bg-black"
           initial="initial"
@@ -84,8 +82,6 @@ const HomeSection: React.FC<HomeSectionProps> = () => {
           variants={splitVariants}
         />
       </div>
-
-      {/* Text overlay centered */}
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         <motion.div
           className="text-[55px] font-bold leading-[1.8] text-white space-y-4 text-center"

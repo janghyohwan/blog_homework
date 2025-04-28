@@ -3,17 +3,17 @@ export interface Link {
   url: string;
 }
 
-export interface CardProps {
+export type CardProps = {
   imageSrc: string;
   imageLink?: string;
   title: string;
   description: string;
   tags: string[];
   links: Link[];
-}
+};
 
-export interface ProjectProps {
+export type ProjectProps = {
   cards?: CardProps[];
   sectionId?: string;
   title?: string;
-}
+};

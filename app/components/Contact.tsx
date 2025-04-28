@@ -1,6 +1,7 @@
+"use client";
 import { FaInstagram, FaFacebook, FaGoogle } from "react-icons/fa";
-import { ContactPageProps } from "../types/contact.types";
-import { contactInfo, socialLinks } from "../data/contactData";
+import { ContactPageProps } from "../../types/contact.types";
+import { contactInfo, socialLinks } from "../../data/contactData";
 
 const ContactPage: React.FC<ContactPageProps> = () => {
   return (

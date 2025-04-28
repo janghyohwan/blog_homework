@@ -1,15 +1,10 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { ProjectProps } from "../types/project.types";
-import { defaultCards } from "../data/projectData";
+import { motion } from "framer-motion";
+import { ProjectProps } from "../../types/project.types";
+import { defaultCards } from "../../data/projectData";
 
-/**
- * Project section component
- * @param cards Array of card data, defaults to defaultCards
- * @param sectionId HTML id for the section, defaults to "projects"
- * @param title Section title, defaults to "Project"
- */
 const Project: React.FC<ProjectProps> = ({
   cards = defaultCards,
   sectionId = "projects",
